@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pranelyx helps people of all ages build healthier habits through personalized nutrition, movement, sleep, and daily wellness routines that support immune health.">
+<link rel="icon" type="image/svg+xml" href="/pranelyx.svg">
+<meta name="theme-color" content="#f8f6ed">
+<title>Pranelyx · Wellness planner</title>
+<link rel="stylesheet" href="/style.css?v=wellness-pages">
+<script type="module" src="/app.js?v=wellness-pages"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="top">
+    <a class="brand" href="/" aria-label="Pranelyx home"><img src="/pranelyx.svg" alt="" width="36" height="36"> Pranelyx</a>
+    <nav id="welcome-nav" aria-label="Main navigation"><a href="#how-it-works">How it works</a><a href="/check-in">Check-in</a><a href="/coaching">Coaching</a></nav>
+    <nav id="dashboard-nav" aria-label="Dashboard navigation" hidden><a href="/plan">Daily plan</a><a href="/agenda">Agenda</a><a href="/check-in">Check-in</a><a href="/coaching">Coaching</a></nav>
+    <a id="header-start" class="button outline" href="#profile-entry">Your profile</a>
+    <div class="profile-actions" id="profile-actions" hidden><button id="edit" class="outline" type="button">Edit profile</button><button id="sign-out" class="outline" type="button">Exit profile</button></div>
+  </div>
+</header>
+<main>
+<div id="welcome-space">
+  <section class="welcome-hero" aria-labelledby="welcome-title">
+    <div class="welcome-copy">
+      <p class="overline">Your daily wellness planner</p>
+      <h1 id="welcome-title">Every age.<br>Every stage.<br><em>Every you.</em></h1>
+      <p>Make time for habits that support immune health. Get a daily plan for meals, movement, sleep, and routines tailored to your age and goals.</p>
+      <a id="welcome-action" class="button" href="#profile-entry">Explore your plan</a>
+    </div>
+    <div class="welcome-photo" role="img" aria-label="A bowl of colorful vegetables and grains"></div>
+  </section>
+  <section id="how-it-works" class="welcome-section" aria-labelledby="features-title">
+    <div class="section-heading">
+      <h2 id="features-title">What’s in your daily plan?</h2>
+      <p>Get meal ideas, a workout that fits your goals, and a routine you can put on your agenda.</p>
+    </div>
+    <div class="feature-grid">
+      <article class="feature"><div class="feature-photo feature-meals" role="img" aria-label="Vegetable and grain bowl"></div><div class="feature-copy"><h3>Meals that fit</h3><p>Choose your diet and meal goal. See breakfast, lunch, dinner, and snack ideas, then track each meal separately.</p></div></article>
+      <article class="feature"><div class="feature-photo feature-movement" role="img" aria-label="A person practicing yoga"></div><div class="feature-copy"><h3>Movement you enjoy</h3><p>Choose yoga, strength, cardio, or everyday movement. Open any exercise for steps and suggested reps or hold times.</p></div></article>
+      <article class="feature"><div class="feature-photo feature-routine" role="img" aria-label="A notebook used for planning"></div><div class="feature-copy"><h3>A routine that works for you</h3><p>Try a different routine each day, add your own tasks and events, or import a calendar file into your agenda.</p></div></article>
+    </div>
+  </section>
+  <section id="profile-entry" class="entry" aria-labelledby="entry-title">
+    <div class="entry-copy">
+      <p class="overline">Your wellness space</p>
+      <h2 id="entry-title" tabindex="-1">Make it yours.</h2>
+      <p>Each profile gets a plan and theme for its age group. A parent or caregiver can set up profiles for children.</p>
+      <ul class="age-list" aria-label="Supported age groups"><li>Ages 5–17</li><li>Ages 18–35</li><li>Ages 36–64</li><li>Ages 65+</li></ul>
+    </div>
+    <div class="entry-controls">
+      <h3>Choose your profile</h3>
+      <form id="enter-profile" hidden>
+        <label for="entry-profiles">Saved profiles</label>
+        <select id="entry-profiles" required></select>
+        <button type="submit">Open profile</button>
+      </form>
+      <button id="new-profile" class="outline" type="button">Create a profile</button>
+      <p class="local-note">Profiles stay in this browser. Use a nickname if you share this device.</p>
+    </div>
+  </section>
+</div>
+<div id="profile-space" hidden>
+<section id="plan-hero" class="hero" aria-labelledby="greeting">
+<div class="hero-content"><p class="date" id="today"></p><h1 id="greeting">Make room for<br>feeling well.</h1><p id="intro">A daily plan for balanced meals, movement, and rest that fits your life.</p><button id="hero-action" type="button">Personalize my plan</button></div>
+</section>
+<section class="planner" aria-labelledby="plan-title">
+<div class="date-panel"><nav aria-label="Plan date"><button id="previous" class="outline" aria-label="Previous day">‹</button><button id="day" class="outline" aria-label="Return to today"></button><button id="next" class="outline" aria-label="Next day">›</button></nav><div id="week-days" class="week-days" role="group" aria-label="Choose a day this week"></div></div>
+<section id="plan-content" aria-labelledby="plan-title">
+<div class="heading"><div><h2 id="plan-title">Your daily plan</h2><p id="summary">Explore a sample adult plan.</p></div><label class="progress"><span id="count" aria-live="polite"></span><progress id="progress" max="3" value="0"></progress></label></div>
+<div id="cards" class="cards"></div>
+<p id="routine-status" class="sr-only" role="status"></p>
+<a class="button outline" href="/agenda">Open your agenda</a>
+</section>
+<section id="agenda" class="agenda" aria-labelledby="agenda-title">
+<div class="agenda-heading"><div><h1 id="agenda-title" tabindex="-1">Daily routine agenda</h1><p id="agenda-date"></p></div><p id="sleep-tip"></p></div>
+<form id="agenda-form">
+<label>Item type<select name="kind"><option value="task">Task</option><option value="event">Event</option></select></label>
+<label>Title<input name="title" maxlength="100" required></label>
+<label>Time (optional)<input name="time" type="time"></label>
+<button type="submit">Add to agenda</button>
+</form>
+<p id="agenda-empty">No tasks or events for this day yet.</p>
+<ul id="agenda-items"></ul>
+<details>
+<summary>Import a calendar</summary>
+<p id="calendar-info">Choose an .ics file to import events into this profile. Your calendar stays in this browser. Reimport a file to refresh the snapshot. Repeating events are included from 30 days back through 180 days ahead.</p>
+<button id="import-calendar" type="button" class="outline" aria-describedby="calendar-info">Choose calendar file</button>
+<input id="calendar-file" type="file" accept=".ics,text/calendar" hidden>
+<button id="clear-calendar" type="button" class="outline" hidden>Clear imported events</button>
+</details>
+<p id="calendar-status" role="status"></p>
+</section>
+<section id="check-in" class="check-in" aria-labelledby="check-in-title" hidden>
+  <h1 id="check-in-title" tabindex="-1">How are you feeling?</h1>
+  <p id="feeling-date"></p>
+  <form id="feeling-form">
+    <label for="feeling">Choose what best describes your day</label>
+    <select id="feeling" required>
+      <option value="">Select how you feel</option>
+      <option value="steady">Feeling well</option>
+      <option value="tired">Low energy</option>
+      <option value="stressed">Stressed or tense</option>
+      <option value="sleep">Slept poorly</option>
+      <option value="congestion">Mild stuffiness or scratchy throat</option>
+    </select>
+    <div class="tool-actions"><button type="submit">Save check-in</button><button id="feeling-clear" type="button" class="outline" hidden>Clear this day</button></div>
+  </form>
+  <p id="feeling-status" role="status"></p>
+  <article id="feeling-result" hidden>
+    <h2 id="feeling-title"></h2>
+    <h3>Gentle home care</h3><p id="feeling-care"></p>
+    <p id="feeling-youth" hidden>Ask a parent or caregiver to help you decide what to try.</p>
+    <details id="feeling-breath" hidden>
+      <summary>Try gentle humming breath</summary>
+      <p>Inspired by Bhramari pranayama. Use it as a short relaxation exercise.</p>
+      <ol><li>Sit comfortably and let your shoulders drop.</li><li>Breathe in gently through your nose if comfortable.</li><li>Hum softly as you breathe out. Try three easy breaths, then breathe normally.</li></ol>
+      <p>Keep your breath comfortable and avoid holding it. Stop if you feel dizzy or short of breath.</p>
+    </details>
+  </article>
+  <p class="check-in-note">Check-ins stay in this browser. If you have trouble breathing, chest pain, or feel severely unwell, seek urgent medical help. For symptoms that worsen or persist, contact a healthcare professional.</p>
+  <p class="check-in-sources"><a href="https://www.cdc.gov/common-cold/treatment/index.html">CDC home care guidance</a> · <a href="https://www.nhs.uk/mental-health/self-help/guides-tools-and-activities/breathing-exercises-for-stress/">NHS gentle breathing guidance</a></p>
+</section>
+</section>
+</div>
+<section id="coaching-page" class="coaching" aria-labelledby="coaching-title" hidden>
+<div>
+  <p class="coaching-label">Premium preview</p>
+  <h2 id="coaching-title">Find a wellness coach</h2>
+  <p>Look up nearby coaches for one-on-one sessions. Open a listing for its public phone number or website, then ask the coach about availability, fees, and qualifications.</p>
+</div>
+<form id="coach-search" action="https://www.google.com/maps/search/" method="get" target="_blank" rel="noopener" aria-describedby="coach-privacy">
+  <label for="coach-location">City or ZIP / postal code</label>
+  <input id="coach-location" type="text" maxlength="100" placeholder="e.g. Portland, OR" required>
+  <input type="hidden" name="api" value="1">
+  <input type="hidden" name="query">
+  <button type="submit">Search Google Maps</button>
+  <p id="coach-privacy">Opens in a new tab. Google Maps receives your search location.</p>
+</form>
+</section>
+<section class="site-tools" aria-label="Data and wellness resources">
+  <details class="site-tool">
+    <summary>Back up your profiles</summary>
+    <p>Save a copy of profiles, meal and activity progress, and agenda items you added. Imported calendar events stay in this browser. Restore requires this browser’s site cookie. Use a trusted device when saving a backup.</p>
+    <div class="tool-actions">
+      <button id="save-backup" type="button">Save a backup</button>
+      <button id="restore-backup" class="outline" type="button">Restore a backup</button>
+      <button id="delete-backup" class="outline" type="button">Delete online backup</button>
+    </div>
+    <p id="backup-status" role="status"></p>
+  </details>
+  <details id="wellness-reading" class="site-tool">
+    <summary>Learn about physical activity</summary>
+    <p id="reading-excerpt">Physical activity can support sleep, physical function, and everyday wellbeing.</p>
+    <a id="reading-url" href="https://www.cdc.gov/physical-activity/php/about/index.html">Read more from the CDC</a>
+  </details>
+</section>
+<footer><div class="footer-brand"><img src="/pranelyx.svg" alt="" width="36" height="36"> Pranelyx</div><p>Pranelyx offers general wellness ideas. Ask a qualified health professional about medical conditions, food allergies, or activity restrictions. A parent or caregiver should guide plans for children.</p><p>Pranelyx (Prah-neh-licks) takes its name from <i>prana</i>, Sanskrit for life energy, and the modern suffix <i>lyx</i>.</p><p>Profiles and progress are stored in this browser. <a href="https://www.cdc.gov/physical-activity-basics/guidelines/index.html">CDC activity guidance</a> · <a href="https://www.cdc.gov/sleep/about/index.html">CDC sleep guidance</a></p></footer>
+</main>
+<dialog id="profile"><form id="settings"><div class="dialog-head"><h2>Make it yours</h2><button id="close" type="button" class="outline" aria-label="Close profile">×</button></div><p>Choose a profile to tailor your meals, movement, and sleep routine.</p>
+<label>Saved profile<select name="selected" id="profiles"></select></label>
+<label>Nickname<input name="name" maxlength="32" autocomplete="off" required></label>
+<label>Age group<select name="age" required><option value="">Choose an age group</option><option value="child">5–12 years</option><option value="teen">13–17 years</option><option value="youngAdult">18–35 years</option><option value="midlife">36–64 years</option><option value="senior">65+ years</option></select></label>
+<label>What is your eating preference?
+<select name="diet" required>
+<option value="">Choose a preference</option>
+<option value="varied">Non-vegetarian (meat and fish)</option>
+<option value="vegetarian">Vegetarian</option>
+<option value="vegan">Vegan</option>
+<option value="pescatarian">Pescatarian (fish, no meat)</option>
+</select></label>
+<label>Do you eat eggs?
+<select name="eggs" required>
+<option value="">Choose an answer</option>
+<option value="yes">Yes, include eggs</option>
+<option value="no">No, skip eggs</option>
+</select></label>
+<label>What do you want your meals to support?
+<select name="mealGoal"><option value="balanced">Balanced everyday meals</option><option value="protein">More protein for strength and activity</option><option value="fiber">More fiber and plant variety</option><option value="energy">Fuel for active days</option><option value="quick">Quick, simple meals</option></select></label>
+<label>How do you like to move?
+<select name="workout"><option value="mixed">Everyday movement</option><option value="yoga">Yoga and mobility</option><option value="home">Home strength</option><option value="gym">Gym training</option><option value="cardio">Cardio</option></select></label>
+<label>What do you want to work on?
+<select name="focus"><option value="full">Full-body fitness</option><option value="upper">Upper-body strength</option><option value="lower">Lower-body strength</option><option value="core">Core stability</option><option value="flexibility">Flexibility and balance</option><option value="endurance">Endurance</option></select></label>
+<label>Movement preference<select name="pace"><option value="gentle">Gentle</option><option value="steady">More active</option></select></label>
+<p id="save-error" role="alert" hidden>Browser storage is unavailable. Your changes will last until you reload.</p>
+<button type="submit">Save profile</button></form></dialog>
+<template id="card"><article><div class="symbol" aria-hidden="true"></div><h3></h3><ul></ul><label class="check"><input type="checkbox"> Mark complete</label></article></template>
+</body>
+</html>

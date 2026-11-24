@@ -1,0 +1,26 @@
+name = "pranelyx"
+main = "worker.js"
+no_bundle = true
+find_additional_modules = true
+compatibility_date = "2025-01-01"
+
+[assets]
+directory = "public"
+binding = "ASSETS"
+run_worker_first = ["/api/*", "/plan", "/agenda", "/check-in", "/coaching"]
+
+[vars]
+APP_NAME = "pranelyx"
+
+[[durable_objects.bindings]]
+name = "GROVE_STORAGE"
+class_name = "GroveStorage"
+
+[[migrations]]
+tag = "grove-storage-v1"
+new_sqlite_classes = ["GroveStorage"]
+
+[[rules]]
+type = "ESModule"
+globs = ["server/**/*.js"]
+fallthrough = false
