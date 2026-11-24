@@ -2,7 +2,7 @@
 
 Pranelyx is an age-aware planner for meals, movement, and routines. It includes meal-by-meal tracking, exercise guides, a weekly view, a local agenda, a daily feeling check-in, and optional cloud backups.
 
-**Staging demo** [daily-grove-wellness.spacestest.com](https://daily-grove-wellness.spacestest.com/?v=pranelyx)
+**Live demo** [pranelyx.app.space](https://pranelyx.app.space/)
 
 **Pronunciation** Prah-neh-licks
 
@@ -61,14 +61,14 @@ The implementation follows the official quickstart's Worker, durable storage, co
 
 ```sh
 npm test
-node tests/hosted-smoke.mjs https://daily-grove-wellness.spacestest.com
+node tests/hosted-smoke.mjs https://pranelyx.app.space
 ```
 
 The automated tests run actual SQLite queries on Node 24 with a small Durable Object adapter and stub the upstream API. The hosted smoke test creates synthetic data, checks read-after-write, cookie isolation, malformed and conflicting writes, cross-origin rejection, and integration availability, then deletes the synthetic payload. Set `NODE_USE_ENV_PROXY=1` if your environment routes Node HTTPS through a configured proxy.
 
 ## DeepSpace deployment and GitHub submission
 
-Use the pinned staging CLI and run `npx deepspace auth whoami` before deploying. This app uses an existing staging app ID. To update that deployment, use a synchronized clone and the authorized staging credential configured **outside** the repository. Keep `DEEPSPACE_ENV=staging` set during staging commands.
+The live app runs on DeepSpace production. To deploy an update, use a synchronized checkout and a production account with access to the app. Run `npx deepspace auth whoami` to check the active account before deploying.
 
 ```sh
 npm ci
@@ -78,7 +78,7 @@ git status --short
 npx deepspace deploy
 ```
 
-Commit changes before deploying a DeepSpace-managed checkout. This repository can be submitted to GitHub as a review copy. The hosted app remains DeepSpace-source managed. Deploying from a separate account or app requires registering a new app ID and choosing an available name rather than reusing the staging identity. Follow the official login and source ownership instructions for that new app. Keep any auth file, operator credentials, or generated `.dev.vars` outside tracked source. [DeepSpace source control](https://docs.deep.space/guides/source-control) · [Staging CLI setup](https://docs.deep.space/agents/start)
+Commit changes before deploying a DeepSpace-managed checkout. This repository can be submitted to GitHub as a review copy. The hosted app remains DeepSpace-source managed. Deploying from a separate account or app requires registering a new app ID and choosing an available name for that deployment. Follow the official login and source ownership instructions for that new app. Keep any auth file, operator credentials, or generated `.dev.vars` outside tracked source. [DeepSpace source control](https://docs.deep.space/guides/source-control) · [Production deployment quickstart](https://docs.deep.space/get-started/quickstart)
 
 ## Live coding walkthrough
 
