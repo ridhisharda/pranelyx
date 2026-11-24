@@ -10,6 +10,7 @@ binding = "ASSETS"
 run_worker_first = ["/api/*", "/plan", "/agenda", "/check-in", "/coaching"]
 
 [vars]
+DEEPSPACE_APP_ID = "app_01M8620138YNJJ5BJ660KDTPYX"
 APP_NAME = "pranelyx"
 
 [[durable_objects.bindings]]
